@@ -29,12 +29,12 @@ public class Scenario {
     public Scenario fromFile(String path) throws InvalidDescriptionException, InvalidValueException, IOException {
         List<String> lines = Files.readAllLines(Paths.get(path));
         
-        if(lines.size() < 4) throw new InvalidDescriptionException("malformed scenario description (missing values)", ex);
+        if(lines.size() < 4) throw new InvalidDescriptionException("malformed scenario description (missing values)");
         
-        int difficultyLevel;
-        int mineCount;
-        int timeLimit;
-        boolean hasSupermine;
+        int difficultyLevel = -1;
+        int mineCount = -1;
+        int timeLimit = -1;
+        boolean hasSupermine = false;
 
         for(int i = 0; i < lines.size(); i++) {
             int value;
