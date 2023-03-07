@@ -18,7 +18,7 @@ public class CountdownTimer extends Label {
 	public CountdownTimer() {
 		super();
 		setText("00:00");
-		setStyle("-fx-border-color: black");
+		setStyle("-fx-font-family: monospace; -fx-font-size: 28px; -fx-text-fill: red; -fx-background-color: black; -fx-border-color: black;");
 	}
 	
 	public void set(int sec) {
