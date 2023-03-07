@@ -1,5 +1,9 @@
 package gr.ntua.ece.medialab.minesweeper;
 
+import java.util.Optional;
+
+import java.io.IOException;
+
 import javafx.stage.Stage;
 
 import javafx.scene.Scene;
@@ -12,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
+
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.TilePane;
@@ -20,15 +25,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.application.Platform;
 import javafx.application.Application;
 
-import java.io.IOException;
-import java.util.Optional;
+import gr.ntua.ece.medialab.minesweeper.types.Scenario;
+
+import gr.ntua.ece.medialab.minesweeper.game.CountdownTimer;
 
 import gr.ntua.ece.medialab.minesweeper.dialogs.ExceptionDialog;
 import gr.ntua.ece.medialab.minesweeper.dialogs.ScenarioCreationDialog;
-import gr.ntua.ece.medialab.minesweeper.exceptions.InvalidDescriptionException;
+
 import gr.ntua.ece.medialab.minesweeper.exceptions.InvalidValueException;
-import gr.ntua.ece.medialab.minesweeper.game.CountdownTimer;
-import gr.ntua.ece.medialab.minesweeper.types.Scenario;
+import gr.ntua.ece.medialab.minesweeper.exceptions.InvalidDescriptionException;
 
 public class App extends Application {
 	
