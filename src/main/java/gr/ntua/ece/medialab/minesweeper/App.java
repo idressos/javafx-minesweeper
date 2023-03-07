@@ -23,6 +23,7 @@ import javafx.application.Application;
 import java.io.IOException;
 import java.util.Optional;
 
+import gr.ntua.ece.medialab.minesweeper.dialogs.ExceptionDialog;
 import gr.ntua.ece.medialab.minesweeper.dialogs.ScenarioCreationDialog;
 import gr.ntua.ece.medialab.minesweeper.exceptions.InvalidDescriptionException;
 import gr.ntua.ece.medialab.minesweeper.exceptions.InvalidValueException;
@@ -69,12 +70,8 @@ public class App extends Application {
             			Scenario scenario = Scenario.fromFile("medialab/" + scenarioId + ".txt");
             			
             			// TODO: Handle scenario load event
-            		} catch(IOException ex) {
-            			// TODO: Handle IOException graphically
-            		} catch(InvalidValueException ex) {
-            			// TODO: Handle InvalidValueException graphically
-            		} catch(InvalidDescriptionException ex) {
-            			// TODO: Handle InvalidDescriptionException graphically
+            		} catch(IOException | InvalidValueException | InvalidDescriptionException ex) {
+            			new ExceptionDialog(ex).showAndWait();
             		}
             	});
             }

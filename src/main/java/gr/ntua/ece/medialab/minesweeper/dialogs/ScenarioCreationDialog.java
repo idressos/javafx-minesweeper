@@ -76,10 +76,8 @@ public class ScenarioCreationDialog extends Dialog<Scenario> {
 		    		scenario.toFile("medialab/" + scenarioIdField.getText() + ".txt");
 		    		
 		    		return scenario;
-		    	} catch(InvalidValueException ex) {
-		    		// TODO: handle InvalidValueException graphically
-		    	} catch(IOException ex) {
-		    		// TODO: handle IOException graphically
+		    	} catch(InvalidValueException | IOException ex) {
+		    		new ExceptionDialog(ex).showAndWait();
 		    	}
 		    }
 		    

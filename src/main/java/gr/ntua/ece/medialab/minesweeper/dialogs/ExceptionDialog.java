@@ -16,7 +16,7 @@ public class ExceptionDialog extends Alert {
 		super(AlertType.ERROR);
 		
 		setTitle("Exception");
-		setHeaderText("Oops.. something didn't go as planned!");
+		setHeaderText("Oops.. something went wrong!");
 		setContentText(ex.getLocalizedMessage());
 		
 		StringWriter sw = new StringWriter();
@@ -24,11 +24,11 @@ public class ExceptionDialog extends Alert {
 		
 		ex.printStackTrace(pw);
 		
-		String exceptionText = sw.toString();
+		String stackTrace = sw.toString();
 		
-		Label label = new Label("The exception stacktrace was:");
+		Label label = new Label("The exception stack trace was:");
 		
-		TextArea textArea = new TextArea(exceptionText);
+		TextArea textArea = new TextArea(stackTrace);
 		textArea.setEditable(false);
 		textArea.setWrapText(true);
 		
