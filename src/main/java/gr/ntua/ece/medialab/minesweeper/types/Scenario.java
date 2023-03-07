@@ -29,7 +29,7 @@ public class Scenario {
     public static Scenario fromFile(String path) throws InvalidDescriptionException, InvalidValueException, IOException {
         List<String> lines = Files.readAllLines(Paths.get(path));
         
-        if(lines.size() < 4) throw new InvalidDescriptionException("malformed scenario description (missing values)", null);
+        if(lines.size() < 4) throw new InvalidDescriptionException("Malformed scenario description (missing values)", null);
         
         int difficultyLevel = -1;
         int mineCount = -1;
@@ -42,7 +42,7 @@ public class Scenario {
             try {
                 value = Integer.parseInt(lines.get(i));
             } catch(NullPointerException | NumberFormatException ex) {
-                throw new InvalidValueException("malformed scenario description (expected integer)", ex);
+                throw new InvalidValueException("Malformed scenario description (expected integer)", ex);
             }
 
             if(i == 0) difficultyLevel = value;
@@ -51,7 +51,7 @@ public class Scenario {
             if(i == 3) {
                 if(value == 0) hasSupermine = false;
                 else if(value == 1) hasSupermine = true;
-                else throw new InvalidValueException("invalid supermine value", null);
+                else throw new InvalidValueException("Invalid supermine value (can be either 0 or 1)", null);
             }
 		}
 
@@ -84,15 +84,15 @@ public class Scenario {
     }
     
     public void validate() throws InvalidValueException {
-        if(difficultyLevel != 1 && difficultyLevel != 2) throw new InvalidValueException("invalid difficulty level", null);
+        if(difficultyLevel != 1 && difficultyLevel != 2) throw new InvalidValueException("Invalid difficulty level", null);
 
         if(difficultyLevel == 1) {
-            if(mineCount < 9 || mineCount > 11) throw new InvalidValueException("invalid mine count", null);
-            if(timeLimit < 120 || timeLimit > 180) throw new InvalidValueException("invalid time limit", null);
-            if(hasSupermine) throw new InvalidValueException("difficulty level 1 can't have supermine", null);
+            if(mineCount < 9 || mineCount > 11) throw new InvalidValueException("Invalid mine count", null);
+            if(timeLimit < 120 || timeLimit > 180) throw new InvalidValueException("Invalid time limit", null);
+            if(hasSupermine) throw new InvalidValueException("Difficulty level 1 scenarios can't have a supermine", null);
         } else if(difficultyLevel == 2) {
-            if(mineCount < 35 || mineCount > 45) throw new InvalidValueException("invalid mine count", null);
-            if(timeLimit < 240 || timeLimit > 360) throw new InvalidValueException("invalid time limit", null);
+            if(mineCount < 35 || mineCount > 45) throw new InvalidValueException("Invalid mine count", null);
+            if(timeLimit < 240 || timeLimit > 360) throw new InvalidValueException("Invalid time limit", null);
         }
     }
 
