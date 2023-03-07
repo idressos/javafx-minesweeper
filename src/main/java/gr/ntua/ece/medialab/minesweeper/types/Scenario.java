@@ -16,7 +16,7 @@ public class Scenario {
     private int mineCount;
     private int timeLimit;
     private boolean hasSupermine;
-
+    
     public Scenario(int difficultyLevel, int mineCount, int timeLimit, boolean hasSupermine) throws InvalidValueException {
         this.difficultyLevel = difficultyLevel;
         this.mineCount = mineCount;
@@ -26,7 +26,7 @@ public class Scenario {
         validate();
     }
     
-    public Scenario fromFile(String path) throws InvalidDescriptionException, InvalidValueException, IOException {
+    public static Scenario fromFile(String path) throws InvalidDescriptionException, InvalidValueException, IOException {
         List<String> lines = Files.readAllLines(Paths.get(path));
         
         if(lines.size() < 4) throw new InvalidDescriptionException("malformed scenario description (missing values)", null);
@@ -57,27 +57,32 @@ public class Scenario {
 
         return new Scenario(difficultyLevel, mineCount, timeLimit, hasSupermine);
     }
-
+    
+    public void toFile(String path) throws IOException {
+        String fileContents = difficultyLevel + "\n" + mineCount + "\n" + timeLimit + "\n" + (hasSupermine ? 1 : 0);
+        Files.write(Paths.get(path), fileContents.getBytes());
+    }
+    
     public int getDifficultyLevel() {
         return difficultyLevel;
     }
-
+    
     public int getGridSize() {
         return difficultyLevel == 1 ? 9 : (difficultyLevel == 2 ? 16 : -1);
     }
-
+    
     public int getMineCount() {
         return mineCount;
     }
-
+    
     public int getTimeLimit() {
         return timeLimit;
     }
-
+    
     public boolean hasSupermine() {
         return hasSupermine;
     }
-
+    
     public void validate() throws InvalidValueException {
         if(difficultyLevel != 1 && difficultyLevel != 2) throw new InvalidValueException("invalid difficulty level", null);
 
