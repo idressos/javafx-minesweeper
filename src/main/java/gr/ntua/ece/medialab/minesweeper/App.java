@@ -19,6 +19,8 @@ import javafx.scene.control.TextInputDialog;
 
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.BorderPane;
 
@@ -124,13 +126,21 @@ public class App extends Application {
         
         // Stats HBox
         HBox statsHBox = new HBox();
+        statsHBox.setSpacing(6.0);
         
         Label minesLabel = new Label("Mines:");
-        minesCounter = new Label("-");
+        minesLabel.setStyle("-fx-font-size: 22px;");
+        minesCounter.setStyle("-fx-font-size: 22px;");
         Label markedLabel = new Label("Marked:");
-        markedCounter = new Label("-");
+        markedLabel.setStyle("-fx-font-size: 22px;");
+        markedCounter.setStyle("-fx-font-size: 22px;");
         
-        statsHBox.getChildren().addAll(minesLabel, minesCounter, markedLabel, markedCounter, countdownTimer);
+        Region leftFiller = new Region();
+        statsHBox.setHgrow(leftFiller, Priority.ALWAYS);
+        Region rightFiller = new Region();
+        statsHBox.setHgrow(rightFiller, Priority.ALWAYS);
+        
+        statsHBox.getChildren().addAll(minesLabel, minesCounter, leftFiller, countdownTimer, rightFiller, markedLabel, markedCounter);
         
         // Top VBox
         VBox topVBox = new VBox();
