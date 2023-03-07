@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 
 import javafx.scene.control.Label;
 
+import javafx.application.Platform;
+
 public class CountdownTimer extends Label {
 	
 	private static Timer timer;
@@ -44,7 +46,7 @@ public class CountdownTimer extends Label {
 		public void run() {
 			if(secondsLeft > 0) {
 				secondsLeft--;
-				CountdownTimer.this.setText(displayFormat.format(new Date(secondsLeft * 1000)));
+				Platform.runLater(() -> CountdownTimer.this.setText(displayFormat.format(new Date(secondsLeft * 1000))));
 			} else stop();
 	    }
 	};
