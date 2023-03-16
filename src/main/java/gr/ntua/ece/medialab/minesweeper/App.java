@@ -21,13 +21,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.TilePane;
 import javafx.scene.layout.BorderPane;
 
 import javafx.application.Platform;
 import javafx.application.Application;
 
 import gr.ntua.ece.medialab.minesweeper.types.Scenario;
+import gr.ntua.ece.medialab.minesweeper.types.Minefield;
 
 import gr.ntua.ece.medialab.minesweeper.game.CountdownTimer;
 
@@ -78,7 +78,8 @@ public class App extends Application {
             		try {
             			Scenario scenario = Scenario.fromFile("medialab/" + scenarioId + ".txt");
             			
-            			// TODO: Handle scenario load event
+            			rootPane.setCenter(new Minefield(scenario));
+                        countdownTimer.set(scenario.getTimeLimit());
             		} catch(IOException | InvalidValueException | InvalidDescriptionException ex) {
             			new ExceptionDialog(ex).showAndWait();
             		}
@@ -138,9 +139,9 @@ public class App extends Application {
         markedCounter.setStyle("-fx-font-size: 18px;");
         
         Region leftFiller = new Region();
-        statsHBox.setHgrow(leftFiller, Priority.ALWAYS);
+        HBox.setHgrow(leftFiller, Priority.ALWAYS);
         Region rightFiller = new Region();
-        statsHBox.setHgrow(rightFiller, Priority.ALWAYS);
+        HBox.setHgrow(rightFiller, Priority.ALWAYS);
         
         statsHBox.getChildren().addAll(minesLabel, minesCounter, leftFiller, countdownTimer, rightFiller, markedLabel, markedCounter);
         
@@ -149,10 +150,6 @@ public class App extends Application {
         topVBox.getChildren().addAll(menuBar, statsHBox);
         
         rootPane.setTop(topVBox);
-        
-        // Game pane
-        TilePane gamePane = new TilePane();
-        rootPane.setCenter(gamePane);
         
         // Initialize scene
         Scene scene = new Scene(rootPane, 600, 600);

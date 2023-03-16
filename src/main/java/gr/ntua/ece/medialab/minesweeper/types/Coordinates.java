@@ -18,4 +18,14 @@ public class Coordinates {
         return y;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if(o instanceof Coordinates) {
+            Coordinates coords = (Coordinates) o;
+            if(coords.getX() == this.getX() && coords.getY() == this.getY()) return true;
+        }
+
+        return false;
+    }
+
 }

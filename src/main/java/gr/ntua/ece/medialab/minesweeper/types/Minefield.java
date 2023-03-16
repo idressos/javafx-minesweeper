@@ -3,6 +3,8 @@ package gr.ntua.ece.medialab.minesweeper.types;
 import java.util.List;
 import java.util.ArrayList;
 
+import java.security.SecureRandom;
+
 import javafx.scene.layout.Pane;
 
 import javafx.scene.image.Image;
@@ -23,8 +25,29 @@ public class Minefield extends Pane {
         super();
 
         Minefield.scenario = scenario;
-
         grid = new Block[scenario.getGridSize()][scenario.getGridSize()];
+
+        SecureRandom rand = new SecureRandom();
+
+        List<Coordinates> bombCoords = new ArrayList<Coordinates>();
+        while(bombCoords.size() < scenario.getMineCount()) {
+            Coordinates coords = new Coordinates(rand.nextInt(getGridWidth()), rand.nextInt(getGridHeight()));
+
+            if(!bombCoords.contains(coords)) bombCoords.add(coords);
+        }
+
+        for(int x = 0; x < getGridWidth(); x++) {
+            for(int y = 0; y < getGridHeight(); y++) {
+                Coordinates coords = new Coordinates(x, y);
+
+                grid[x][y] = new Block(bombCoords.contains(coords) ? (bombCoords.indexOf(coords) == 4 ? new Supermine() : new Mine()) : null, coords);
+            }
+        }
+
+        getChildren().setAll(getAllBlocks());
+
+        isIntact = true;
+        leftClicksCount = 0;
     }
 
     public static Scenario getScenario() {
@@ -46,9 +69,9 @@ public class Minefield extends Pane {
     public static List<Block> getAllBlocks() {
         List<Block> blocks = new ArrayList<Block>();
 
-        for(int i = 0; i < getGridWidth(); i++) {
-            for(int j = 0; j < getGridHeight(); j++) {
-                blocks.add(grid[i][j]);
+        for(int x = 0; x < getGridWidth(); x++) {
+            for(int y = 0; y < getGridHeight(); y++) {
+                blocks.add(grid[x][y]);
             }
         }
 

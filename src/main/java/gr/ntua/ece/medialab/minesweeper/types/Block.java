@@ -1,6 +1,5 @@
 package gr.ntua.ece.medialab.minesweeper.types;
 
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import javafx.scene.paint.Color;
@@ -24,10 +23,13 @@ public class Block extends StackPane {
     private boolean isMarked;
 
     private static Rectangle border = new Rectangle(App.getBlockSize() - 2, App.getBlockSize() - 2);
-    private Text text = new Text();
+    private Text text;
 
-    public Block(Coordinates coords) {
+    public Block(Mine mine, Coordinates coords) {
+        this.mine = mine;
         this.coords = coords;
+
+        text = new Text();
 
         border.setStroke(Color.LIGHTGRAY);
 
@@ -38,7 +40,7 @@ public class Block extends StackPane {
         flagImageView.setFitHeight(App.getBlockSize() - 2);
         flagImageView.setVisible(false);
 
-        getChildren().addAll(border, text);
+        getChildren().addAll(border, text, flagImageView);
 
         setTranslateX(coords.getX() * App.getBlockSize());
         setTranslateY(coords.getY() * App.getBlockSize());
