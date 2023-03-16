@@ -94,8 +94,8 @@ public class Minefield extends Pane {
                 Image mineImage = new Image("");
                 ImageView mineImageView = new ImageView(mineImage);
 
-                mineImageView.setFitWidth(TILE_SIZE - 2);
-                mineImageView.setFitHeight(TILE_SIZE - 2);
+                mineImageView.setFitWidth(App.getBlockSize() - 2);
+                mineImageView.setFitHeight(App.getBlockSize() - 2);
 
                 block.getChildren().setAll(mineImageView);
                 mineImageView.setVisible(true);
