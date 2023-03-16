@@ -39,6 +39,8 @@ import gr.ntua.ece.medialab.minesweeper.exceptions.InvalidDescriptionException;
 
 public class App extends Application {
 	
+    private static final int BLOCK_SIZE = 40;
+
     private static Label minesCounter = new Label("-");
     private static Label markedCounter = new Label("-");
     private static CountdownTimer countdownTimer = new CountdownTimer();
@@ -168,12 +170,20 @@ public class App extends Application {
         launch();
     }
     
-    public static void setMinesCounter(int count) {
+    public static void setMinesCounter(long count) {
     	minesCounter.setText(count >= 0 ? String.valueOf(count) : "-");
     }
     
-    public static void setMarkedCounter(int count) {
+    public static void setMarkedCounter(long count) {
     	markedCounter.setText(count >= 0 ? String.valueOf(count) : "-");
     }
     
+    public static void stopTimer() {
+        countdownTimer.stop();
+    }
+    
+    public static int getBlockSize() {
+        return BLOCK_SIZE;
+    }
+
 }
