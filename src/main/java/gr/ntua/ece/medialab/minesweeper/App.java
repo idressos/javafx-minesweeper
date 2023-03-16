@@ -129,11 +129,11 @@ public class App extends Application {
         statsHBox.setSpacing(6.0);
         
         Label minesLabel = new Label("Mines:");
-        minesLabel.setStyle("-fx-font-size: 22px;");
-        minesCounter.setStyle("-fx-font-size: 22px;");
+        minesLabel.setStyle("-fx-font-size: 18px;");
+        minesCounter.setStyle("-fx-font-size: 18px;");
         Label markedLabel = new Label("Marked:");
-        markedLabel.setStyle("-fx-font-size: 22px;");
-        markedCounter.setStyle("-fx-font-size: 22px;");
+        markedLabel.setStyle("-fx-font-size: 18px;");
+        markedCounter.setStyle("-fx-font-size: 18px;");
         
         Region leftFiller = new Region();
         statsHBox.setHgrow(leftFiller, Priority.ALWAYS);
