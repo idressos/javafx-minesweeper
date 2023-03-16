@@ -38,8 +38,6 @@ import gr.ntua.ece.medialab.minesweeper.exceptions.InvalidValueException;
 import gr.ntua.ece.medialab.minesweeper.exceptions.InvalidDescriptionException;
 
 public class App extends Application {
-	
-    private static final int BLOCK_SIZE = 40;
 
     private static Label minesCounter = new Label("-");
     private static Label markedCounter = new Label("-");
@@ -179,8 +177,4 @@ public class App extends Application {
         countdownTimer.stop();
     }
     
-    public static int getBlockSize() {
-        return BLOCK_SIZE;
-    }
-
 }
