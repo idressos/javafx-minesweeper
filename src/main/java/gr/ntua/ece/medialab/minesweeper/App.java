@@ -54,8 +54,7 @@ public class App extends Application {
         MenuItem createItem = new MenuItem("Create");
         createItem.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                ScenarioCreationDialog scenarioCreationDialog = new ScenarioCreationDialog();
-                scenarioCreationDialog.showAndWait();
+                new ScenarioCreationDialog().showAndWait();
             }
         });
         
@@ -71,9 +70,11 @@ public class App extends Application {
             	input.ifPresent(scenarioId -> {
             		try {
             			Scenario scenario = Scenario.fromFile("medialab/" + scenarioId + ".txt");
-            			
+
+                        countdownTimer.set(Minefield.getScenario().getTimeLimit());
             			rootPane.setCenter(new Minefield(scenario));
-                        countdownTimer.set(scenario.getTimeLimit());
+                        
+                        stage.sizeToScene();
             		} catch(IOException | InvalidValueException | InvalidDescriptionException ex) {
             			new ExceptionDialog(ex).showAndWait();
             		}
@@ -84,7 +85,9 @@ public class App extends Application {
         MenuItem startItem = new MenuItem("Start");
         startItem.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                // TODO: Handle game start event
+                if(rootPane.getCenter() != null && rootPane.getCenter() instanceof Minefield) {
+                    countdownTimer.start();
+                }
             }
         });
         
@@ -146,7 +149,7 @@ public class App extends Application {
         rootPane.setTop(topVBox);
         
         // Initialize scene
-        Scene scene = new Scene(rootPane, 600, 600);
+        Scene scene = new Scene(rootPane);
         
         // Stage options
         stage.setScene(scene);
@@ -169,8 +172,8 @@ public class App extends Application {
     	markedCounter.setText(count >= 0 ? String.valueOf(count) : "-");
     }
     
-    public static void stopTimer() {
-        countdownTimer.stop();
+    public static CountdownTimer getCountdownTimer() {
+        return countdownTimer;
     }
     
 }

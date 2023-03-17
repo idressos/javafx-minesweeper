@@ -15,6 +15,7 @@ public class CountdownTimer extends Label {
 	private static Timer timer;
 	private static SimpleDateFormat displayFormat = new SimpleDateFormat("mm:ss");
 	
+	private static boolean isRunning;
 	private static int secondsLeft = -1;
 	
 	public CountdownTimer() {
@@ -28,10 +29,17 @@ public class CountdownTimer extends Label {
 		timer = new Timer();
 		
 		secondsLeft = sec;
-		
-		timer.schedule(updateTask, 0, 1000);
+
+		updateTask.run();
 	}
 	
+	public void start() {
+		if(timer != null) {
+			timer.schedule(updateTask, 0, 1000);
+			isRunning = true;
+		}
+	}
+
 	public void stop() {
 		if(timer != null) {
 			timer.cancel();
@@ -39,6 +47,11 @@ public class CountdownTimer extends Label {
 		}
 		
 		timer = null;
+		isRunning = false;
+	}
+	
+	public boolean isRunning() {
+		return isRunning;
 	}
 	
 	TimerTask updateTask = new TimerTask() {

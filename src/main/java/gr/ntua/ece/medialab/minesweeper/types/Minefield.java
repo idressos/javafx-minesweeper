@@ -23,6 +23,8 @@ public class Minefield extends Pane {
         
         Minefield.scenario = scenario;
         grid = new Block[scenario.getGridSize()][scenario.getGridSize()];
+
+        setPrefSize(Block.BLOCK_SIZE * scenario.getGridSize(), Block.BLOCK_SIZE * scenario.getGridSize());
         
         SecureRandom rand = new SecureRandom();
         
@@ -113,7 +115,7 @@ public class Minefield extends Pane {
             if(block.hasMine()) block.open();
         }
         
-        App.stopTimer();
+        App.getCountdownTimer().stop();
         
         // TODO: More game over methods
     }

@@ -13,7 +13,7 @@ import gr.ntua.ece.medialab.minesweeper.App;
 
 public class Block extends StackPane {
 	
-	private static final int BLOCK_SIZE = 40;
+	public static final int BLOCK_SIZE = 40;
 
 	private ImageView imageView = new ImageView();
 	private static final Image blockImage = new Image("block.png");
@@ -46,10 +46,13 @@ public class Block extends StackPane {
         
         setOnMouseClicked(e -> {
             if(!Minefield.isIntact()) return;
+
+            if(!App.getCountdownTimer().isRunning()) App.getCountdownTimer().start();
+
             if(e.getButton() == MouseButton.PRIMARY && !isMarked) {
                 Minefield.incrementLeftClicksCount();
                 open();
-            } else if(e.getButton() == MouseButton.SECONDARY && !isOpen && Minefield.getLeftClicksCount() > 0) {
+            } else if(e.getButton() == MouseButton.SECONDARY && !isOpen) {
                 if(isMarked) {
                 	isMarked = false;
                     
