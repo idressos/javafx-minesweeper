@@ -70,10 +70,10 @@ public class App extends Application {
             	input.ifPresent(scenarioId -> {
             		try {
             			Scenario scenario = Scenario.fromFile("medialab/" + scenarioId + ".txt");
-
-                        countdownTimer.set(Minefield.getScenario().getTimeLimit());
-            			rootPane.setCenter(new Minefield(scenario));
                         
+            			rootPane.setCenter(new Minefield(scenario));
+                        countdownTimer.set(Minefield.getScenario().getTimeLimit());
+
                         stage.sizeToScene();
             		} catch(IOException | InvalidValueException | InvalidDescriptionException ex) {
             			new ExceptionDialog(ex).showAndWait();
