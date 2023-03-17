@@ -113,7 +113,7 @@ public class Minefield extends Pane {
             isIntact = false;
             
             for(Block block : getAllBlocks()) {
-                if(block.hasMine()) block.open();
+                if(block.hasMine()) block.open(false);
             }
             
             App.getCountdownTimer().stop();
