@@ -1,5 +1,7 @@
 package gr.ntua.ece.medialab.minesweeper.types;
 
+import java.util.List;
+
 import javafx.scene.text.Text;
 
 import javafx.scene.image.Image;
@@ -52,7 +54,7 @@ public class Block extends StackPane {
 
             if(e.getButton() == MouseButton.PRIMARY && !isMarked) {
                 Minefield.incrementLeftClicksCount();
-                open();
+                open(true);
             } else if(e.getButton() == MouseButton.SECONDARY && !isOpen) {
                 if(isMarked) {
                 	isMarked = false;
@@ -66,7 +68,18 @@ public class Block extends StackPane {
                 	imageView.setImage(flagImage);
                     
                     if(Minefield.getLeftClicksCount() >= 4) {
-                    	
+                        List<Block> xBlocks = Minefield.getAllBlocks().stream().filter(block -> block.getCoordinates().getY() == getCoordinates().getY()).toList();
+                    	List<Block> yBlocks = Minefield.getAllBlocks().stream().filter(block -> block.getCoordinates().getY() == getCoordinates().getY()).toList();
+
+                        for(Block block : xBlocks) {
+                            if(block.hasMine()) block.mark();
+                            else block.open(false);
+                        }
+
+                        for(Block block : yBlocks) {
+                            if(block.hasMine()) block.mark();
+                            else block.open(false);
+                        }
                     }
                     
                     App.setMarkedCounter(Minefield.getMarkedBlockCount());
@@ -107,7 +120,7 @@ public class Block extends StackPane {
         return Minefield.getNeighboringBlocks(this).stream().filter(block -> block.hasMine()).count();
     }
     
-    public void open() {
+    public void open(boolean recursive) {
         if(isOpen) return;
         if(hasMine()) {
             imageView.setImage(mineImage);
@@ -126,8 +139,8 @@ public class Block extends StackPane {
         if(neighboringMineCount == 4) imageView.setImage(nb4Image);
         if(neighboringMineCount == 5) imageView.setImage(nb5Image);
         
-        if(neighboringMineCount == 0) {
-            Minefield.getNeighboringBlocks(this).forEach(block -> { if(!block.isMarked()) block.open(); });
+        if(neighboringMineCount == 0 && recursive) {
+            Minefield.getNeighboringBlocks(this).forEach(block -> { if(!block.isMarked()) block.open(recursive); });
         }
     }
     
