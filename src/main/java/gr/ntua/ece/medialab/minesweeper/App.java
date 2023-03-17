@@ -73,6 +73,7 @@ public class App extends Application {
                         
             			rootPane.setCenter(new Minefield(scenario));
                         countdownTimer.set(Minefield.getScenario().getTimeLimit());
+                        setMinesCounter(scenario.getMineCount());
 
                         stage.sizeToScene();
             		} catch(IOException | InvalidValueException | InvalidDescriptionException ex) {
