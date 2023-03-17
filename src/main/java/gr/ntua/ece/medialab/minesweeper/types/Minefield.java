@@ -45,7 +45,7 @@ public class Minefield extends Pane {
             for(int y = 0; y < getGridHeight(); y++) {
                 Coordinates coords = new Coordinates(x, y);
                 
-                Mine mine = bombCoords.contains(coords) ? (bombCoords.indexOf(coords) == 4 ? new Supermine() : new Mine()) : null;
+                Mine mine = bombCoords.contains(coords) ? ((bombCoords.indexOf(coords) == 4 && scenario.hasSupermine()) ? new Supermine() : new Mine()) : null;
                 grid[x][y] = new Block(mine, coords);
 
                 if(mine != null) minesTxt = minesTxt + y + " " + x + " " + (mine instanceof Supermine ? "1" : "0 ") + "\n";
