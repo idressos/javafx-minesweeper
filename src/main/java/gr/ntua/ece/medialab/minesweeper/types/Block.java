@@ -14,11 +14,11 @@ import gr.ntua.ece.medialab.minesweeper.App;
 public class Block extends StackPane {
 	
 	private static final int BLOCK_SIZE = 40;
-	
+
 	private ImageView imageView = new ImageView();
-	private static final Image blockImage = new Image("img/block.png");
-	private static final Image flagImage = new Image("img/flag.png");
-	private static final Image mineImage = new Image("img/mine.png");
+	private static final Image blockImage = new Image("block.png");
+	private static final Image flagImage = new Image("flag.png");
+	private static final Image mineImage = new Image("mine.png");
 	
     private Mine mine;
     private Coordinates coords;

@@ -55,11 +55,7 @@ public class App extends Application {
         createItem.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 ScenarioCreationDialog scenarioCreationDialog = new ScenarioCreationDialog();
-                
-                Optional<Scenario> result = scenarioCreationDialog.showAndWait();
-                result.ifPresent(scenario -> {
-                	// TODO: Handle scenario creation event
-                });
+                scenarioCreationDialog.showAndWait();
             }
         });
         
