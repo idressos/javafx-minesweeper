@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import gr.ntua.ece.medialab.minesweeper.types.Minefield;
+
 import java.text.SimpleDateFormat;
 
 import javafx.scene.control.Label;
@@ -37,7 +39,10 @@ public class CountdownTimer extends Label {
 				if(secondsLeft > 0) {
 					secondsLeft--;
 					Platform.runLater(() -> CountdownTimer.this.setText(displayFormat.format(new Date(secondsLeft * 1000))));
-				} else stop();
+				} else {
+					Minefield.blowUp();
+					stop();
+				}
 			}
 		};
 
@@ -63,6 +68,10 @@ public class CountdownTimer extends Label {
 		isRunning = false;
 	}
 	
+	public void setTextColor(String color) {
+		setStyle("-fx-font-family: monospace; -fx-font-size: 20px; -fx-text-fill: " + color + "; -fx-background-color: black; -fx-border-color: black;");
+	}
+
 	public boolean isRunning() {
 		return isRunning;
 	}

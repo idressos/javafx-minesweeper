@@ -149,6 +149,11 @@ public class Block extends StackPane {
         if(neighboringMineCount == 0 && recursive) {
             Minefield.getNeighboringBlocks(this).forEach(block -> { if(!block.isMarked() && !block.isOpen()) block.open(recursive); });
         }
+
+        if(Minefield.getScenario().getGridSize() * Minefield.getScenario().getGridSize() - Minefield.getAllBlocks().stream().filter(block -> block.isOpen).count() == Minefield.getScenario().getMineCount()) {
+            App.getCountdownTimer().stop();
+            App.getCountdownTimer().setTextColor("green");
+        }
     }
     
 }

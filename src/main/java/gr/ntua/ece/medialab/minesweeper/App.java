@@ -87,8 +87,6 @@ public class App extends Application {
         startItem.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 if(rootPane.getCenter() != null && rootPane.getCenter() instanceof Minefield) {
-                    Minefield minefield = (Minefield) rootPane.getCenter();
-
                     if(!Minefield.isIntact() || countdownTimer.isRunning()) load();
 
                     countdownTimer.start();
@@ -119,7 +117,11 @@ public class App extends Application {
         MenuItem solutionItem = new MenuItem("Solution");
         solutionItem.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                // TODO: Handle SOLUTION event
+                if(rootPane.getCenter() != null && rootPane.getCenter() instanceof Minefield) {
+                    Minefield.blowUp();
+                    
+                    countdownTimer.stop();
+                }
             }
         });
         
