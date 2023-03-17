@@ -109,15 +109,15 @@ public class Minefield extends Pane {
     }
     
     public static void blowUp() {
-        isIntact = false;
-        
-        for(Block block : getAllBlocks()) {
-            if(block.hasMine()) block.open();
+        if(isIntact) {
+            isIntact = false;
+            
+            for(Block block : getAllBlocks()) {
+                if(block.hasMine()) block.open();
+            }
+            
+            App.getCountdownTimer().stop();
         }
-        
-        App.getCountdownTimer().stop();
-        
-        // TODO: More game over methods
     }
     
     public static long getMarkedBlockCount() {
