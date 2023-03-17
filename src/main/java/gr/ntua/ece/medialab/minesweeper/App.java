@@ -43,10 +43,13 @@ public class App extends Application {
     private static Label markedCounter = new Label("-");
     private static CountdownTimer countdownTimer = new CountdownTimer();
     
+    private static Scenario scenario;
+    private static BorderPane rootPane;
+    
     @Override
     public void start(Stage stage) {
     	// Root application pane
-        BorderPane rootPane = new BorderPane();
+        rootPane = new BorderPane();
         
         // Application Menu
         Menu appMenu = new Menu("Application");
@@ -69,13 +72,8 @@ public class App extends Application {
             	Optional<String> input = textInputDialog.showAndWait();
             	input.ifPresent(scenarioId -> {
             		try {
-            			Scenario scenario = Scenario.fromFile("medialab/" + scenarioId + ".txt");
-                        
-            			rootPane.setCenter(new Minefield(scenario));
-                        countdownTimer.set(Minefield.getScenario().getTimeLimit());
-                        
-                        setMarkedCounter(0);
-                        setMinesCounter(scenario.getMineCount());
+            			scenario = Scenario.fromFile("medialab/" + scenarioId + ".txt");
+                        load();
 
                         stage.sizeToScene();
             		} catch(IOException | InvalidValueException | InvalidDescriptionException ex) {
@@ -89,6 +87,10 @@ public class App extends Application {
         startItem.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 if(rootPane.getCenter() != null && rootPane.getCenter() instanceof Minefield) {
+                    Minefield minefield = (Minefield) rootPane.getCenter();
+
+                    if(!Minefield.isIntact() || countdownTimer.isRunning()) load();
+
                     countdownTimer.start();
                 }
             }
@@ -162,7 +164,15 @@ public class App extends Application {
         // Show stage
         stage.show();
     }
-    
+
+    public static void load() {
+        rootPane.setCenter(new Minefield(scenario));
+        countdownTimer.set(Minefield.getScenario().getTimeLimit());
+        
+        setMarkedCounter(0);
+        setMinesCounter(scenario.getMineCount());
+    }
+
     public static void main(String[] args) {
         launch();
     }
