@@ -30,7 +30,7 @@ public class Block extends StackPane {
     private static final Image nb7Image = new Image("7.png");
     private static final Image nb8Image = new Image("8.png");
 
-    private static int leftClicksCount;
+    private static int leftClicksCount = 0;
 
     private Mine mine;
     private Coordinates coords;
@@ -66,7 +66,7 @@ public class Block extends StackPane {
                 } else if(Minefield.getMarkedBlockCount() < Minefield.getScenario().getMineCount()){
                     mark();
                     
-                    if(getMine() != null && getMine() instanceof Supermine && leftClicksCount >= 4) {
+                    if(getMine() instanceof Supermine && leftClicksCount <= 4) {
                         List<Block> xBlocks = Minefield.getAllBlocks().stream().filter(block -> block.getCoordinates().getX() == getCoordinates().getX()).toList();
                     	List<Block> yBlocks = Minefield.getAllBlocks().stream().filter(block -> block.getCoordinates().getY() == getCoordinates().getY()).toList();
 
@@ -83,8 +83,6 @@ public class Block extends StackPane {
                 }
             }
         });
-
-        leftClicksCount = 0;
     }
     
     public Mine getMine() {
@@ -132,6 +130,7 @@ public class Block extends StackPane {
             imageView.setImage(mineImage);
             getMine().explode();
             
+            leftClicksCount = 0;
             return;
         }
 

@@ -3,11 +3,17 @@ package gr.ntua.ece.medialab.minesweeper.types;
 import java.util.List;
 import java.util.ArrayList;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import java.io.IOException;
+
 import java.security.SecureRandom;
 
 import javafx.scene.layout.Pane;
 
 import gr.ntua.ece.medialab.minesweeper.App;
+import gr.ntua.ece.medialab.minesweeper.dialogs.ExceptionDialog;
 
 public class Minefield extends Pane {
 	
@@ -33,14 +39,26 @@ public class Minefield extends Pane {
             if(!bombCoords.contains(coords)) bombCoords.add(coords);
         }
         
+        String minesTxt = "";
+
         for(int x = 0; x < getGridWidth(); x++) {
             for(int y = 0; y < getGridHeight(); y++) {
                 Coordinates coords = new Coordinates(x, y);
                 
-                grid[x][y] = new Block(bombCoords.contains(coords) ? (bombCoords.indexOf(coords) == 4 ? new Supermine() : new Mine()) : null, coords);
+                Mine mine = bombCoords.contains(coords) ? (bombCoords.indexOf(coords) == 4 ? new Supermine() : new Mine()) : null;
+                grid[x][y] = new Block(mine, coords);
+
+                if(mine != null) minesTxt = minesTxt + y + " " + x + " " + (mine instanceof Supermine ? "1" : "0 ") + "\n";
             }
         }
-        
+
+        try {
+            Files.createDirectories(Paths.get("medialab"));
+            Files.write(Paths.get("medialab/mines.txt"), minesTxt.getBytes());
+        } catch(IOException ex) {
+            new ExceptionDialog(ex).showAndWait();
+        }
+
         getChildren().setAll(getAllBlocks());
         
         isIntact = true;
