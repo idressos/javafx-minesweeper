@@ -73,6 +73,8 @@ public class App extends Application {
                         
             			rootPane.setCenter(new Minefield(scenario));
                         countdownTimer.set(Minefield.getScenario().getTimeLimit());
+                        
+                        setMarkedCounter(0);
                         setMinesCounter(scenario.getMineCount());
 
                         stage.sizeToScene();
