@@ -1,10 +1,10 @@
 # Maven Files
-target
+/target/
 
 # Eclipse Files
-.settings
-.project
-.classpath
+/.settings/
+/.project
+/.classpath
 
 # Application Files
-medialab
+/medialab/
