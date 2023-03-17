@@ -26,6 +26,9 @@ public class Block extends StackPane {
 	private static final Image nb3Image = new Image("3.png");
     private static final Image nb4Image = new Image("4.png");
 	private static final Image nb5Image = new Image("5.png");
+    private static final Image nb6Image = new Image("6.png");
+    private static final Image nb7Image = new Image("7.png");
+    private static final Image nb8Image = new Image("8.png");
 
     private static int leftClicksCount;
 
@@ -140,6 +143,9 @@ public class Block extends StackPane {
         if(neighboringMineCount == 3) imageView.setImage(nb3Image);
         if(neighboringMineCount == 4) imageView.setImage(nb4Image);
         if(neighboringMineCount == 5) imageView.setImage(nb5Image);
+        if(neighboringMineCount == 6) imageView.setImage(nb6Image);
+        if(neighboringMineCount == 7) imageView.setImage(nb7Image);
+        if(neighboringMineCount == 8) imageView.setImage(nb8Image);
         
         if(neighboringMineCount == 0 && recursive) {
             Minefield.getNeighboringBlocks(this).forEach(block -> { if(!block.isMarked() && !block.isOpen()) block.open(recursive); });
