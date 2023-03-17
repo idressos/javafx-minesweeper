@@ -72,7 +72,7 @@ public class ScenarioCreationDialog extends Dialog<Scenario> {
 		        		timeLimitSpinner.getValue(),
 		        		supermineCheckBox.isSelected());
 		    		
-		    		Files.createDirectory(Paths.get("medialab"));
+		    		Files.createDirectories(Paths.get("medialab"));
 		    		scenario.toFile("medialab/" + scenarioIdField.getText() + ".txt");
 		    		
 		    		return scenario;
