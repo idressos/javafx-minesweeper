@@ -12,14 +12,17 @@ import javafx.application.Platform;
 
 public class CountdownTimer extends Label {
 	
-	private static Timer timer;
+	private Timer timer;
 	private static SimpleDateFormat displayFormat = new SimpleDateFormat("mm:ss");
 	
-	private static boolean isRunning;
-	private static int secondsLeft = -1;
+	private boolean isRunning;
+	private int secondsLeft = -1;
 	
+	private TimerTask updateTask;
+
 	public CountdownTimer() {
 		super();
+
 		setText("00:00");
 		setStyle("-fx-font-family: monospace; -fx-font-size: 20px; -fx-text-fill: red; -fx-background-color: black; -fx-border-color: black;");
 	}
@@ -28,6 +31,16 @@ public class CountdownTimer extends Label {
 		stop();
 		timer = new Timer();
 		
+		updateTask = new TimerTask() {
+			@Override
+			public void run() {
+				if(secondsLeft > 0) {
+					secondsLeft--;
+					Platform.runLater(() -> CountdownTimer.this.setText(displayFormat.format(new Date(secondsLeft * 1000))));
+				} else stop();
+			}
+		};
+
 		secondsLeft = sec;
 
 		updateTask.run();
@@ -53,15 +66,5 @@ public class CountdownTimer extends Label {
 	public boolean isRunning() {
 		return isRunning;
 	}
-	
-	TimerTask updateTask = new TimerTask() {
-		@Override
-		public void run() {
-			if(secondsLeft > 0) {
-				secondsLeft--;
-				Platform.runLater(() -> CountdownTimer.this.setText(displayFormat.format(new Date(secondsLeft * 1000))));
-			} else stop();
-	    }
-	};
 	
 }
