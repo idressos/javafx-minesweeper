@@ -34,14 +34,14 @@ public class CountdownTimer extends Label {
 		updateTask = new TimerTask() {
 			@Override
 			public void run() {
-				if(secondsLeft > 0) {
+				if(secondsLeft > 1) {
 					secondsLeft--;
 					Platform.runLater(() -> CountdownTimer.this.setText(displayFormat.format(new Date(secondsLeft * 1000))));
 				} else stop();
 			}
 		};
 
-		secondsLeft = sec;
+		secondsLeft = sec + 1;
 
 		updateTask.run();
 	}
