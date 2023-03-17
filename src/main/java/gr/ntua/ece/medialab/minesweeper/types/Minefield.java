@@ -16,8 +16,6 @@ public class Minefield extends Pane {
     
     private static boolean isIntact = true;
     
-    private static int leftClicksCount = 0;
-    
     public Minefield(Scenario scenario) {
         super();
         
@@ -46,7 +44,6 @@ public class Minefield extends Pane {
         getChildren().setAll(getAllBlocks());
         
         isIntact = true;
-        leftClicksCount = 0;
     }
     
     public static Scenario getScenario() {
@@ -122,14 +119,6 @@ public class Minefield extends Pane {
     
     public static long getMarkedBlockCount() {
         return getAllBlocks().stream().filter(block -> block.isMarked()).count();
-    }
-    
-    public static int getLeftClicksCount() {
-        return leftClicksCount;
-    }
-    
-    public static void incrementLeftClicksCount() {
-        leftClicksCount++;
     }
     
 }
